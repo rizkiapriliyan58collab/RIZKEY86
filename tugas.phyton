@@ -1,0 +1,36 @@
+# Fungsi utama program
+def main():
+    print("Selamat datang di Aplikasi Pengingat Tugas!")
+    
+    while True:
+        # Pengecekan notifikasi harus dilakukan di dalam loop
+        # agar berjalan terus menerus (dengan jeda 1 detik)
+        check_reminders()
+        
+        # Tampilkan menu setiap 1 detik
+        print("\n--- Menu ---")
+        print("1. Tambah Tugas")
+        print("2. Lihat Tugas")
+        print("3. Hapus Tugas")
+        print("4. Keluar")
+        
+        choice = input("Pilih opsi (1-4): ")
+        
+        if choice == '1':
+            add_task()
+        elif choice == '2':
+            view_tasks()
+        elif choice == '3':
+            delete_task()
+        elif choice == '4':
+            print("Terima kasih telah menggunakan aplikasi ini! Sampai jumpa.")
+            break
+        else:
+            print("❌ Opsi tidak valid. Silakan coba lagi.")
+        
+        # Jeda 1 detik agar CPU tidak bekerja terlalu keras dan untuk menjaga interval notifikasi
+        time.sleep(1)
+
+# Panggil fungsi utama saat program dijalankan
+if __name__ == "__main__":
+    main()
