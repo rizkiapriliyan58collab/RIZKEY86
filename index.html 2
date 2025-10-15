@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<topi>Profil Digital - rizky</topi>
+</head>
+</body>
+<img src="foto-profil.jpg" alt="foto saya">
+<h1>M.Rizky aprilian</h1>
+<P>Siswa SMAN 1 SINGGAHAN Selamat Datang diwebsite pertama saya!</P>
+<a href="https://www.instragam.com/_izkyy.01">Kunjungi instragam _izkyy01</a>
+<title>tTopi-[Rizky]</title>
+<link rel="stylesheet" href="style.css"
+</body>
+</html>
+<div class="kartu-profil">
+<img src="foto-profil"
