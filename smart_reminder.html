@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Reminder</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      color: #333;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #222;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    input, button {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background: #f9f9f9;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .delete-btn {
+      background: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Smart Reminder</h1>
+  <div class="container">
+    <input type="text" id="taskName" placeholder="Masukkan nama tugas..." />
+    <input type="time" id="taskTime" />
+    <button onclick="addTask()">➕ Tambah Tugas</button>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function renderTasks() {
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          ${task.name} - ${task.time}
+          <button class="delete-btn" onclick="deleteTask(${index})">Hapus</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const name = document.getElementById("taskName").value;
+      const time = document.getElementById("taskTime").value;
+      if (!name || !time) return alert("Isi nama dan waktu tugas!");
+
+      tasks.push({ name, time });
+      saveTasks();
+      renderTasks();
+      document.getElementById("taskName").value = "";
+      document.getElementById("taskTime").value = "";
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      saveTasks();
+      renderTasks();
+    }
+
+    function checkReminder() {
+      const now = new Date();
+      const currentTime = now.toTimeString().slice(0, 5);
+      tasks.forEach(task => {
+        if (task.time === currentTime) {
+          showNotification(task.name);
+        }
+      });
+    }
+
+    function showNotification(taskName) {
+      if (Notification.permission === "granted") {
+        new Notification("⏰ Pengingat Tugas!", {
+          body: `Sudah waktunya: ${taskName}`,
+        });
+      }
+    }
+
+    function requestNotificationPermission() {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+    }
+
+    renderTasks();
+    requestNotificationPermission();
+    setInterval(checkReminder, 10000);
+  </script>
+</body>
+</html>
