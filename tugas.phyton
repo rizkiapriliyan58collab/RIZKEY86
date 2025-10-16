@@ -32,5 +32,5 @@ def main():
         time.sleep(1)
 
 # Panggil fungsi utama saat program dijalankan
-if __name__ == "__main__":
+if __rizky__ == "__main__":
     main()
