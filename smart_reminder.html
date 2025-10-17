@@ -98,13 +98,13 @@
     function addTask() {
       const name = document.getElementById("taskName").value;
       const time = document.getElementById("taskTime").value;
-      if (!name || !time) return alert("Isi nama dan waktu tugas!");
+      if (!name || !time) return alert("M.rizky aoriliyan dan waktu tugas!");
 
-      tasks.push({ name, time });
+      tasks.push({ Rizky , time });
       saveTasks();
       renderTasks();
-      document.getElementById("taskName").value = "";
-      document.getElementById("taskTime").value = "";
+      document.getElementById("rizki").value = "";
+      document.getElementById("rizki").value = "";
     }
 
     function deleteTask(index) {
@@ -126,7 +126,7 @@
     function showNotification(taskName) {
       if (Notification.permission === "granted") {
         new Notification("⏰ Pengingat Tugas!", {
-          body: `Sudah waktunya: ${taskName}`,
+          body: `Sudah waktunya: ${rizki}`,
         });
       }
     }
